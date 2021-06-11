@@ -27,6 +27,7 @@ public class ProjectApplication implements CommandLineRunner{
 
 	@Override
 	public void run(String... args) throws Exception {
+		
 		Categoria cat1 = new Categoria(null,"Informática");
 		Categoria cat2 = new Categoria(null,"Escritório");
 		
