@@ -9,10 +9,15 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.jesaias.project.dominio.Categoria;
 import com.jesaias.project.dominio.Cidade;
+import com.jesaias.project.dominio.Cliente;
+import com.jesaias.project.dominio.Endereco;
 import com.jesaias.project.dominio.Estado;
 import com.jesaias.project.dominio.Produto;
+import com.jesaias.project.dominio.enums.TipoCliente;
 import com.jesaias.project.repositories.CategoriaRepository;
 import com.jesaias.project.repositories.CidadeRepository;
+import com.jesaias.project.repositories.ClienteRepository;
+import com.jesaias.project.repositories.EnderecoRepository;
 import com.jesaias.project.repositories.EstadoRepository;
 import com.jesaias.project.repositories.ProdutoRepository;
 
@@ -31,6 +36,14 @@ public class ProjectApplication implements CommandLineRunner {
 	
 	@Autowired
 	private CidadeRepository cidadeRepository;
+	
+	@Autowired
+	private ClienteRepository clienteRepository;
+	
+	@Autowired
+	private EnderecoRepository enderecoRepository;
+	
+	
 	
 
 	public static void main(String[] args) {
@@ -71,6 +84,20 @@ public class ProjectApplication implements CommandLineRunner {
 		
 		estadoRepository.saveAll(Arrays.asList(est1,est2));
 		cidadeRepository.saveAll(Arrays.asList(c1,c2,c3));
+		
+		Cliente cli1 = new Cliente(null,"Maria Silva",  "maria@gmail.com","071987654321", TipoCliente.PESSOAFISICA);
+		cli1.getTelefones().addAll(Arrays.asList("(71)908765432","(11)987652345"));
+		
+		
+		
+		Endereco e1 = new Endereco(null, "Rua das Noivas", "22", "Ap 5", "Vila Lopa", "41-345-678", cli1, c1);
+		
+		Endereco e2 = new  Endereco(null, "Rua nova Luxemburgo", "1543","Ap 1505", "Morumbi", "28-345-544", cli1, c2);
+		
+		cli1.getEnderecos().addAll(Arrays.asList(e1,e2));
+		
+		clienteRepository.saveAll(Arrays.asList(cli1));
+		enderecoRepository.saveAll(Arrays.asList(e1,e2));
 	}
 
 }
